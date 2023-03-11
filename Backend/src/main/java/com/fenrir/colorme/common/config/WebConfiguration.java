@@ -1,4 +1,4 @@
-package com.fenrir.colorme.config;
+package com.fenrir.colorme.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
