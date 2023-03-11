@@ -18,6 +18,10 @@ public class Palette {
     private List<PaletteLike> likes = new ArrayList<>();
 
     public List<String> getHexList() {
+        if (colors == null) {
+            return new ArrayList<>();
+        }
+
         return colors.stream()
                 .map(PaletteColor::getHex)
                 .collect(Collectors.toList());
