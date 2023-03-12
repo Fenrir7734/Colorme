@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-public class CreatePaletteService implements CreatePaletteUseCase {
+class CreatePaletteService implements CreatePaletteUseCase {
     private final CreatePalettePort createPalettePort;
     private final PaletteMapper paletteMapper;
 

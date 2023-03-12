@@ -1,12 +1,14 @@
 package com.fenrir.colorme.palette.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 public class PaletteColor {
-    private final Long id;
-    private final String hex;
+    private Long id;
+    private String hex;
 }
