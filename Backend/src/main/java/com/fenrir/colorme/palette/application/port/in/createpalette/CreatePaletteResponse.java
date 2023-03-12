@@ -8,4 +8,5 @@ import java.util.List;
 public class CreatePaletteResponse {
     String code;
     List<String> colors;
+    List<Long> tags;
 }

@@ -1,7 +1,7 @@
 package com.fenrir.colorme.tag.application.service;
 
 import com.fenrir.colorme.common.annotation.UseCase;
-import com.fenrir.colorme.tag.application.mapper.TagMapper;
+import com.fenrir.colorme.tag.application.service.mapper.TagMapper;
 import com.fenrir.colorme.tag.application.port.in.gettags.GetTagsQuery;
 import com.fenrir.colorme.tag.application.port.in.gettags.response.TagResponse;
 import com.fenrir.colorme.tag.application.port.out.GetTagsPort;

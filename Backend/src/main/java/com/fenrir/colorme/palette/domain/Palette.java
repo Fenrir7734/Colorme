@@ -13,6 +13,7 @@ public class Palette {
     private Long id;
     private String code;
     private List<PaletteColor> colors = new ArrayList<>();
+    private List<Long> tags = new ArrayList<>();
     private List<PaletteLike> likes = new ArrayList<>();
 
     public List<String> getHexList() {

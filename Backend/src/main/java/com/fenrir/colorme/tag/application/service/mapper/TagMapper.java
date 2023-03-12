@@ -1,4 +1,4 @@
-package com.fenrir.colorme.tag.application.mapper;
+package com.fenrir.colorme.tag.application.service.mapper;
 
 import com.fenrir.colorme.tag.application.port.in.gettags.response.CategoryResponse;
 import com.fenrir.colorme.tag.application.port.in.gettags.response.TagResponse;

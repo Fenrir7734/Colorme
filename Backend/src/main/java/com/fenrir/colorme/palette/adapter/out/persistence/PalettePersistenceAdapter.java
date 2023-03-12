@@ -13,22 +13,36 @@ import java.util.List;
 class PalettePersistenceAdapter implements CreatePalettePort {
     private final PaletteRepository paletteRepository;
     private final PaletteColorRepository paletteColorRepository;
-    private final PaletteEntityMapper paletteMapper;
+    private final PaletteTagRepository paletteTagRepository;
     private final EntityManager entityManager;
+    private final PaletteEntityMapper paletteMapper;
 
     @Override
     public void createPalette(Palette palette) {
         PaletteEntity paletteEntity = paletteMapper.toPaletteEntity(palette);
-        List<PaletteColorEntity> colors = paletteEntity.getColors()
-                .stream()
-                .peek(color -> color.setPalette(paletteEntity))
-                .toList();
-
         paletteRepository.save(paletteEntity);
-        paletteColorRepository.saveAll(colors);
         entityManager.refresh(paletteEntity);
+
+        persisPaletteColors(paletteEntity);
+        persistPaletteTags(paletteEntity);
 
         palette.setId(paletteEntity.getId());
         palette.setCode(paletteEntity.getCode());
+    }
+
+    private void persisPaletteColors(PaletteEntity palette) {
+        List<PaletteColorEntity> colors = palette.getColors()
+                .stream()
+                .peek(color -> color.setPalette(palette))
+                .toList();
+        paletteColorRepository.saveAll(colors);
+    }
+
+    private void persistPaletteTags(PaletteEntity palette) {
+        List<PaletteTagEntity> tags = palette.getTags()
+                .stream()
+                .peek(tag -> tag.getId().setPaletteId(palette.getId()))
+                .toList();
+        paletteTagRepository.saveAll(tags);
     }
 }

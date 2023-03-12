@@ -1,4 +1,4 @@
-package com.fenrir.colorme.palette.application.mapper;
+package com.fenrir.colorme.palette.application.service.mapper;
 
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteCommand;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteResponse;

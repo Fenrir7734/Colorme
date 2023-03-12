@@ -22,8 +22,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode
-public class PaletteTagEntity {
+class PaletteTagEntity {
 
     @EmbeddedId
     private Id id = new Id();
