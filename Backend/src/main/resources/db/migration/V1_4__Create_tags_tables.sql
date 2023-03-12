@@ -18,7 +18,7 @@ CREATE TABLE tags
     FOREIGN KEY (category_id) REFERENCES tag_categories (id)
 );
 
-CREATE TABLE color_palette_tags
+CREATE TABLE palette_tags
 (
     palette_id BIGINT REFERENCES palettes,
     tag_id     BIGINT REFERENCES tags,

@@ -45,4 +45,7 @@ class PaletteEntity {
 
     @OneToMany(mappedBy = "palette", fetch = FetchType.LAZY)
     private List<PaletteLikeEntity> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "palette", fetch = FetchType.LAZY)
+    private List<PaletteTagEntity> tags = new ArrayList<>();
 }
