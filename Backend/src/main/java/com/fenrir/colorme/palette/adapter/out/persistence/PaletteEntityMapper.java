@@ -11,9 +11,19 @@ import java.util.List;
 @Mapper
 interface PaletteEntityMapper {
     PaletteEntity toPaletteEntity(Palette palette);
-    PaletteColorEntity toPaletteColor(PaletteColor color);
-    PaletteLikeEntity toPaletteLike(PaletteLike like);
-    List<PaletteTagEntity> toPaletteTagsList(List<Long> tags);
+    PaletteColorEntity toPaletteColorEntity(PaletteColor color);
+    PaletteLikeEntity toPaletteLikeEntity(PaletteLike like);
+    List<PaletteTagEntity> toPaletteTagsListEntity(List<Long> tags);
     @Mapping(source = ".", target = "id.tagId")
-    PaletteTagEntity toPaletteTag(Long tag);
+    PaletteTagEntity toPaletteTagEntity(Long tag);
+
+    Palette toPalette(PaletteEntity palette);
+    List<PaletteColor> toPaletteColorList(List<PaletteColorEntity> colors);
+    PaletteColor toPaletteColor(PaletteColorEntity color);
+    List<PaletteLike> toPaletteLikesList(List<PaletteLikeEntity> likes);
+    PaletteLike toPaletteLike(PaletteLikeEntity like);
+    List<Long> toTagsList(List<PaletteTagEntity> tags);
+    default Long toTag(PaletteTagEntity tag) {
+        return tag.getId().getTagId();
+    }
 }
