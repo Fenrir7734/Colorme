@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-public class DeletePaletteService implements DeletePaletteUseCase {
+class DeletePaletteService implements DeletePaletteUseCase {
     private final DeletePalettePort deletePalettePort;
     private final PaletteExistsPort paletteExistsPort;
 
