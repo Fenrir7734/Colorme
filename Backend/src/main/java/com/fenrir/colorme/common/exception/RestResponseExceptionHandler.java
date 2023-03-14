@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestResponseExceptionHandler {
+    private static final String CONSTRAINT_VIOLATION_MESSAGE = "Constraint Violation";
+    private static final String HTTP_MESSAGE_NOT_READABLE_MESSAGE = "Failed to read request body";
+    private static final String INTERNAL_SERVER_ERROR_MESSAGE = "Internal server error";
 
     @ExceptionHandler({ PaletteNotFoundException.class, TagsNotFoundException.class })
     public ResponseEntity<ErrorMessage> handleNotFoundException(Exception ex, WebRequest request) {
@@ -55,7 +58,7 @@ public class RestResponseExceptionHandler {
         ErrorMessage message = new ConstraintViolationErrorMessage(
                 HttpStatus.CONFLICT.value(),
                 LocalDateTime.now(),
-                "Constraint Violation",
+                CONSTRAINT_VIOLATION_MESSAGE,
                 request.getDescription(false),
                 constraintViolations
         );
@@ -67,7 +70,7 @@ public class RestResponseExceptionHandler {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now(),
-                "Failed to read request body",
+                HTTP_MESSAGE_NOT_READABLE_MESSAGE,
                 request.getDescription(false)
         );
         return new ResponseEntity<>(message, HttpStatus.CONFLICT);
@@ -91,7 +94,7 @@ public class RestResponseExceptionHandler {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 LocalDateTime.now(),
-                "Internal server error",
+                INTERNAL_SERVER_ERROR_MESSAGE,
                 request.getDescription(false)
         );
         return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
