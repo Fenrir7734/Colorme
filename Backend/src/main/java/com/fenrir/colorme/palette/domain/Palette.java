@@ -27,6 +27,10 @@ public class Palette {
     }
 
     public Integer likesCount() {
+        if (null == likes) {
+            return 0;
+        }
+
         return likes.size();
     }
 }
