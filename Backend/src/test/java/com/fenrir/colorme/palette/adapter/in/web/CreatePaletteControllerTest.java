@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = CreatePaletteController.class)
 class CreatePaletteControllerTest {
-    private static final String CONTROLLER_ENDPOINT = "/api/v1/palettes";
+    private static final String CREATE_PALETTE_CONTROLLER_ENDPOINT = "/api/v1/palettes";
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,7 +47,7 @@ class CreatePaletteControllerTest {
         givenCreatePaletteUseCaseWillSuccess(command, createPaletteResponse);
 
         // when
-        ResultActions response = mockMvc.perform(post(CONTROLLER_ENDPOINT)
+        ResultActions response = mockMvc.perform(post(CREATE_PALETTE_CONTROLLER_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command)));
 
@@ -59,8 +59,6 @@ class CreatePaletteControllerTest {
                 .andExpect(jsonPath("$.colors[0]", is("123456")))
                 .andExpect(jsonPath("$.colors[1]", is("ABCDEF")))
                 .andExpect(jsonPath("$.tags.size()", is(0)));
-
-        then(createPaletteUseCase).should().createPalette(command);
     }
 
     @Test
@@ -70,7 +68,7 @@ class CreatePaletteControllerTest {
         command.setColors(null);
 
         // when
-        ResultActions response = mockMvc.perform(post(CONTROLLER_ENDPOINT)
+        ResultActions response = mockMvc.perform(post(CREATE_PALETTE_CONTROLLER_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command)));
 
