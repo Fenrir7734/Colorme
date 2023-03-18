@@ -23,13 +23,13 @@ class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, Cr
     private final PaletteEntityMapper paletteMapper;
 
     @Override
-    public Optional<Palette> getPalette(Long id) {
-        return paletteRepository.findById(id).map(paletteMapper::toPalette);
+    public Optional<Palette> getPalette(String code) {
+        return paletteRepository.findByCode(code).map(paletteMapper::toPalette);
     }
 
     @Override
-    public boolean paletteExists(Long id) {
-        return paletteRepository.existsById(id);
+    public boolean paletteExists(String code) {
+        return paletteRepository.existsByCode(code);
     }
 
     @Override
@@ -62,10 +62,10 @@ class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, Cr
     }
 
     @Override
-    public void deletePalette(Long id) {
-        paletteColorRepository.deleteAllByPaletteId(id);
-        paletteTagRepository.deleteAllByPaletteId(id);
-        paletteLikeRepository.deleteAllByPaletteId(id);
-        paletteRepository.deleteById(id);
+    public void deletePalette(String code) {
+        paletteColorRepository.deleteAllByPaletteCode(code);
+        paletteTagRepository.deleteAllByPaletteCode(code);
+        paletteLikeRepository.deleteAllByPaletteCode(code);
+        paletteRepository.deleteByCode(code);
     }
 }

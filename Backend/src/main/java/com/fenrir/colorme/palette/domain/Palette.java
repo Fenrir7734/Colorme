@@ -25,4 +25,8 @@ public class Palette {
                 .map(PaletteColor::getHex)
                 .collect(Collectors.toList());
     }
+
+    public Integer likesCount() {
+        return likes.size();
+    }
 }

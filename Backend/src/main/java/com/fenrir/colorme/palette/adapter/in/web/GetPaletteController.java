@@ -1,10 +1,10 @@
 package com.fenrir.colorme.palette.adapter.in.web;
 
 import com.fenrir.colorme.common.annotation.WebAdapter;
-import com.fenrir.colorme.palette.application.port.in.DeletePaletteUseCase;
+import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/v1/palettes")
 @RequiredArgsConstructor
-class DeletePaletteController {
-    private final DeletePaletteUseCase deletePaletteUseCase;
+public class GetPaletteController {
+    private final GetPaletteUseCase getPaletteUseCase;
 
-    @DeleteMapping("/{code}")
-    ResponseEntity<Void> deletePalette(@PathVariable("code") String code) {
-        deletePaletteUseCase.deletePalette(code);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/{code}")
+    ResponseEntity<?> getPalette(@PathVariable("code") String code) {
+        return ResponseEntity.ok(getPaletteUseCase.getPalette(code));
     }
 }

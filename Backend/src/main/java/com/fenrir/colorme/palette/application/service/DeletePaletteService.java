@@ -16,11 +16,11 @@ class DeletePaletteService implements DeletePaletteUseCase {
     private final PaletteExistsPort paletteExistsPort;
 
     @Override
-    public void deletePalette(Long id) {
-        if (paletteExistsPort.paletteExists(id)) {
-            deletePalettePort.deletePalette(id);
+    public void deletePalette(String code) {
+        if (paletteExistsPort.paletteExists(code)) {
+            deletePalettePort.deletePalette(code);
         } else {
-            throw new PaletteNotFoundException(id);
+            throw new PaletteNotFoundException(code);
         }
     }
 }
