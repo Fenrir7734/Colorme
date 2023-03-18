@@ -5,7 +5,6 @@ import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteRespo
 import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteUseCase;
 import com.fenrir.colorme.palette.application.port.out.GetPalettePort;
 import com.fenrir.colorme.palette.application.service.exception.PaletteNotFoundException;
-import com.fenrir.colorme.palette.application.service.mapper.PaletteMapper;
 import com.fenrir.colorme.palette.domain.Palette;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;

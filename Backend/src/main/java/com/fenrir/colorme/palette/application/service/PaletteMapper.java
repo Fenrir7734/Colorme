@@ -1,4 +1,4 @@
-package com.fenrir.colorme.palette.application.service.mapper;
+package com.fenrir.colorme.palette.application.service;
 
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteCommand;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteResponse;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper
-public interface PaletteMapper {
+interface PaletteMapper {
 
     Palette toPalette(CreatePaletteCommand command);
 
