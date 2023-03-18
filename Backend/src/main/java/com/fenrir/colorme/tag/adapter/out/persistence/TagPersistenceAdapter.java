@@ -15,7 +15,7 @@ class TagPersistenceAdapter implements GetTagsPort, ExistsAllTagsPort {
     private final TagEntityMapper tagMapper;
 
     @Override
-    public List<Tag> getTagsPort() {
+    public List<Tag> getAllTags() {
         final List<TagEntity> tags = tagRepository.findAll();
         return tagMapper.toTagsList(tags);
     }

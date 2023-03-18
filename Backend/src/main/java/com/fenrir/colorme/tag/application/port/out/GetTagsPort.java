@@ -5,5 +5,5 @@ import com.fenrir.colorme.tag.domain.Tag;
 import java.util.List;
 
 public interface GetTagsPort {
-    List<Tag> getTagsPort();
+    List<Tag> getAllTags();
 }

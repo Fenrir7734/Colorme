@@ -11,10 +11,10 @@ class PaletteTest {
     @Test
     void returnsListOfHexColorCodes() {
         // given
-        Palette palette = defaultPalette();
+        final Palette palette = givenPalette();
 
         // when
-        List<String> colors = palette.getHexList();
+        final List<String> colors = palette.getHexList();
 
         // then
         assertThat(colors).containsExactlyInAnyOrderElementsOf(List.of("123456", "654321"));
@@ -23,11 +23,11 @@ class PaletteTest {
     @Test
     void returnsEmptyListOfHexColorCodes() {
         // given
-        Palette palette = defaultPalette();
+        final Palette palette = givenPalette();
         palette.setColors(null);
 
         // when
-        List<String> colors = palette.getHexList();
+        final List<String> colors = palette.getHexList();
 
         // then
         assertThat(colors).isEmpty();
@@ -36,10 +36,10 @@ class PaletteTest {
     @Test
     void returnsLikesCount() {
         // given
-        Palette palette = defaultPalette();
+        final Palette palette = givenPalette();
 
         // when
-        Integer count = palette.likesCount();
+        final Integer count = palette.likesCount();
 
         // then
         assertThat(count).isEqualTo(2);
@@ -48,17 +48,17 @@ class PaletteTest {
     @Test
     void returnsLikesCountEqualToZero() {
         // given
-        Palette palette = defaultPalette();
+        final Palette palette = givenPalette();
         palette.setLikes(null);
 
         // when
-        Integer count = palette.likesCount();
+        final Integer count = palette.likesCount();
 
         // then
         assertThat(count).isEqualTo(0);
     }
 
-    private Palette defaultPalette() {
+    private Palette givenPalette() {
         Palette palette = new Palette();
         palette.setId(1L);
         palette.setCode("code");
