@@ -18,7 +18,7 @@ class GetPaletteService implements GetPaletteUseCase {
 
     @Override
     public GetPaletteResponse getPalette(String code) {
-        Palette palette = getPalettePort.getPalette(code)
+        final Palette palette = getPalettePort.getPalette(code)
                 .orElseThrow(() -> new PaletteNotFoundException(code));
         return paletteMapper.toGetPaletteResponse(palette);
     }

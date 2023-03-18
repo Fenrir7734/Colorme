@@ -34,7 +34,7 @@ class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, Cr
 
     @Override
     public void createPalette(Palette palette) {
-        PaletteEntity paletteEntity = paletteMapper.toPaletteEntity(palette);
+        final PaletteEntity paletteEntity = paletteMapper.toPaletteEntity(palette);
         paletteRepository.save(paletteEntity);
         entityManager.refresh(paletteEntity);
 
@@ -46,7 +46,7 @@ class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, Cr
     }
 
     private void persisPaletteColors(PaletteEntity palette) {
-        List<PaletteColorEntity> colors = palette.getColors()
+        final List<PaletteColorEntity> colors = palette.getColors()
                 .stream()
                 .peek(color -> color.setPalette(palette))
                 .toList();
@@ -54,7 +54,7 @@ class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, Cr
     }
 
     private void persistPaletteTags(PaletteEntity palette) {
-        List<PaletteTagEntity> tags = palette.getTags()
+        final List<PaletteTagEntity> tags = palette.getTags()
                 .stream()
                 .peek(tag -> tag.getId().setPaletteId(palette.getId()))
                 .toList();
