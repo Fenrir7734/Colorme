@@ -56,13 +56,13 @@ public class RestResponseExceptionHandler {
         }
 
         ErrorMessage message = new ConstraintViolationErrorMessage(
-                HttpStatus.CONFLICT.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now(),
                 CONSTRAINT_VIOLATION_MESSAGE,
                 request.getDescription(false),
                 constraintViolations
         );
-        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({ HttpMessageNotReadableException.class })
@@ -73,7 +73,7 @@ public class RestResponseExceptionHandler {
                 HTTP_MESSAGE_NOT_READABLE_MESSAGE,
                 request.getDescription(false)
         );
-        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({ DataIntegrityViolationException.class })
