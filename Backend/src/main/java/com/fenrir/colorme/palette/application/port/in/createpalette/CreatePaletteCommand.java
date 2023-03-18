@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class CreatePaletteCommand {
 
+    @NotNull
     @Size(min = 2, max = 10)
     private List<@Pattern(regexp = "[A-Fa-f0-9]{6}") String> colors;
 
