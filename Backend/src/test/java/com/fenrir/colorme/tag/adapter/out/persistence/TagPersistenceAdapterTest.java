@@ -1,9 +1,9 @@
 package com.fenrir.colorme.tag.adapter.out.persistence;
 
+import com.fenrir.colorme.shared.PersistenceAdapterTest;
 import com.fenrir.colorme.tag.domain.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -11,10 +11,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
 @Import({ TagPersistenceAdapter.class, TagEntityMapperImpl.class })
 @Sql("TagPersistenceAdapterTest.sql")
-class TagPersistenceAdapterTest {
+class TagPersistenceAdapterTest extends PersistenceAdapterTest {
     private static final Long EXISTING_TAG_ID_1 = 100L;
     private static final Long EXISTING_TAG_ID_2 = 101L;
     private static final Long NOT_EXISTING_TAG_ID = 999L;
@@ -22,11 +21,14 @@ class TagPersistenceAdapterTest {
     @Autowired
     private TagPersistenceAdapter tagPersistenceAdapter;
 
+    @Autowired
+    private TagRepository tagRepository;
+
     @Test
     void getsAllTags() {
         final List<Tag> tags = tagPersistenceAdapter.getAllTags();
 
-        assertThat(tags.size()).isEqualTo(3);
+        assertThat(tags.size()).isEqualTo(tagRepository.count());
     }
 
     @Test
