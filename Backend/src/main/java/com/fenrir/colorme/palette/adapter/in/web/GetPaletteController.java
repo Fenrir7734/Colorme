@@ -1,6 +1,7 @@
 package com.fenrir.colorme.palette.adapter.in.web;
 
 import com.fenrir.colorme.common.annotation.WebAdapter;
+import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteResponse;
 import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class GetPaletteController {
     private final GetPaletteUseCase getPaletteUseCase;
 
     @GetMapping("/{code}")
-    ResponseEntity<?> getPalette(@PathVariable("code") String code) {
+    ResponseEntity<GetPaletteResponse> getPalette(@PathVariable("code") String code) {
         return ResponseEntity.ok(getPaletteUseCase.getPalette(code));
     }
 }

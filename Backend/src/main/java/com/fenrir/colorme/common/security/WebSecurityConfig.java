@@ -11,23 +11,37 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity // Fix HttpSecurity autowire warning in Intellij
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class WebSecurityConfig {
+
+    private final EntryPoint entryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.oauth2Login()
+        return http
+                    .oauth2Login()
+                    .defaultSuccessUrl("/")
                 .and()
                     .authorizeHttpRequests()
                     .requestMatchers("/", "/**.html", "/**.js").permitAll()
+                    .requestMatchers(permitAllEndpoints()).permitAll()
                     .requestMatchers("/api/**").authenticated()
                     .anyRequest().permitAll()
                 .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(entryPoint)
+                .and()
                     .logout()
                     .logoutSuccessUrl("/")
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
                 .and()
                     .csrf().disable()
                     .cors().disable()
                     .build();
+    }
+
+    private AntPathRequestMatcher[] permitAllEndpoints() {
+        return new AntPathRequestMatcher[] {
+                new AntPathRequestMatcher("/api/v1/tags", "GET"),
+                new AntPathRequestMatcher("/api/v1/palettes/{code}", "GET")
+        };
     }
 }
