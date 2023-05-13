@@ -1,5 +1,6 @@
 package com.fenrir.colorme.common.security;
 
+import com.fenrir.colorme.common.security.oauth2.ColormeOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +14,17 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final EntryPoint entryPoint;
+    private final ColormeOAuth2UserService oAuth2UserService;
+    private final UnauthorizedEntryPoint unauthorizedEntryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                     .oauth2Login()
                     .defaultSuccessUrl("/")
+                    .userInfoEndpoint()
+                    .userService(oAuth2UserService)
+                .and()
                 .and()
                     .authorizeHttpRequests()
                     .requestMatchers("/", "/**.html", "/**.js").permitAll()
@@ -28,7 +33,7 @@ public class WebSecurityConfig {
                     .anyRequest().permitAll()
                 .and()
                     .exceptionHandling()
-                    .authenticationEntryPoint(entryPoint)
+                    .authenticationEntryPoint(unauthorizedEntryPoint)
                 .and()
                     .logout()
                     .logoutSuccessUrl("/")

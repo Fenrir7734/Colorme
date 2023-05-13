@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class EntryPoint implements AuthenticationEntryPoint {
+public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     private static final String UNAUTHORIZED = "Unauthorized!";
 
     @Override
