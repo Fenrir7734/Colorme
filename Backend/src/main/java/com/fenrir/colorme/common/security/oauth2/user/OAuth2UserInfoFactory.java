@@ -14,6 +14,7 @@ public class OAuth2UserInfoFactory {
         return switch (provider) {
             case GOOGLE -> new GoogleOAuth2UserInfo(attributes);
             case FACEBOOK -> new FacebookOAuth2UserInfo(attributes);
+            case GITHUB -> new GithubOAuth2UserInfo(attributes);
             case UNKNOWN -> throw new OAuth2AuthenticationProcessingException("Unknown OAuth2 provider");
         };
     }

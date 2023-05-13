@@ -5,6 +5,7 @@ import java.util.Arrays;
 public enum OAuth2Provider {
     GOOGLE,
     FACEBOOK,
+    GITHUB,
 
     UNKNOWN;
 
