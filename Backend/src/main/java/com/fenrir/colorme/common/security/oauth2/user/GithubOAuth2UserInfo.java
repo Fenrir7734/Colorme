@@ -5,7 +5,7 @@ import com.fenrir.colorme.common.security.oauth2.OAuth2Provider;
 import java.util.Map;
 
 // TODO: Handle null email addresses.
-public class GithubOAuth2UserInfo extends OAuth2UserInfo {
+class GithubOAuth2UserInfo extends OAuth2UserInfo {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String EMAIL = "email";

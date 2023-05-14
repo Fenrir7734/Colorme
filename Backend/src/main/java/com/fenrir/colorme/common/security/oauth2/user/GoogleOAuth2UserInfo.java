@@ -4,7 +4,7 @@ import com.fenrir.colorme.common.security.oauth2.OAuth2Provider;
 
 import java.util.Map;
 
-public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
+class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     private static final String ID = "sub";
     private static final String NAME = "name";
     private static final String EMAIL = "email";
