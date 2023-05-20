@@ -1,6 +1,7 @@
 package com.fenrir.colorme.palette.adapter.in.web;
 
 import com.fenrir.colorme.common.annotation.WebAdapter;
+import com.fenrir.colorme.common.security.annotation.AllowUser;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteCommand;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteResponse;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteUseCase;
@@ -16,6 +17,7 @@ import java.net.URI;
 
 @WebAdapter
 @RestController
+@AllowUser
 @RequestMapping(path = "/api/v1/palettes")
 @RequiredArgsConstructor
 class CreatePaletteController {
