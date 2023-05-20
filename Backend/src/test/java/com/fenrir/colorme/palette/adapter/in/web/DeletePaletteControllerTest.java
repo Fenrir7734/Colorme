@@ -1,11 +1,10 @@
 package com.fenrir.colorme.palette.adapter.in.web;
 
 import com.fenrir.colorme.palette.application.port.in.DeletePaletteUseCase;
+import com.fenrir.colorme.shared.WebAdapterTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.BDDMockito.then;
@@ -13,11 +12,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = DeletePaletteController.class)
-class DeletePaletteControllerTest {
+class DeletePaletteControllerTest extends WebAdapterTest {
     private static final String DELETE_PALETTE_CONTROLLER_ENDPOINT = "/api/v1/palettes/%s";
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @MockBean
     private DeletePaletteUseCase deletePaletteUseCase;

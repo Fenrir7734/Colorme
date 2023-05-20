@@ -2,11 +2,10 @@ package com.fenrir.colorme.palette.adapter.in.web;
 
 import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteResponse;
 import com.fenrir.colorme.palette.application.port.in.getpalette.GetPaletteUseCase;
+import com.fenrir.colorme.shared.WebAdapterTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
@@ -18,11 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = GetPaletteController.class)
-class GetPaletteControllerTest {
+class GetPaletteControllerTest extends WebAdapterTest {
     private static final String GET_PALETTE_CONTROLLER_ENDPOINT = "/api/v1/palettes/%s";
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @MockBean
     private GetPaletteUseCase getPaletteUseCase;

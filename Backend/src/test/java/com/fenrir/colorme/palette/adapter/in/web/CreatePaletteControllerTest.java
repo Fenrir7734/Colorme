@@ -1,15 +1,13 @@
 package com.fenrir.colorme.palette.adapter.in.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteCommand;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteResponse;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteUseCase;
+import com.fenrir.colorme.shared.WebAdapterTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
@@ -26,14 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = CreatePaletteController.class)
-class CreatePaletteControllerTest {
+class CreatePaletteControllerTest extends WebAdapterTest {
     private static final String CREATE_PALETTE_CONTROLLER_ENDPOINT = "/api/v1/palettes";
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
     private CreatePaletteUseCase createPaletteUseCase;
