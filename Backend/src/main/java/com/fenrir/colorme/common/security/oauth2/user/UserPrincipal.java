@@ -34,6 +34,16 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         );
     }
 
+    public static UserPrincipal create(Long id, String email, String password, Collection<? extends  GrantedAuthority> authorities) {
+        return new UserPrincipal(
+                id,
+                email,
+                password,
+                authorities,
+                null
+        );
+    }
+
     public Long getId() {
         return id;
     }
