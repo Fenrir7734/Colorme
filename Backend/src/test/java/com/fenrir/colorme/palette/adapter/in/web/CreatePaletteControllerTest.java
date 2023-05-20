@@ -4,6 +4,7 @@ import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePalett
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteResponse;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteUseCase;
 import com.fenrir.colorme.shared.WebAdapterTest;
+import com.fenrir.colorme.shared.sercurity.AsUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -31,6 +32,7 @@ class CreatePaletteControllerTest extends WebAdapterTest {
     private CreatePaletteUseCase createPaletteUseCase;
 
     @Test
+    @AsUser
     void testCreatePalette() throws Exception {
         // given
         final CreatePaletteCommand command = givenCommand();
@@ -54,6 +56,7 @@ class CreatePaletteControllerTest extends WebAdapterTest {
     }
 
     @Test
+    @AsUser
     void testCreatePaletteValidation() throws Exception {
         // given
         final CreatePaletteCommand command = givenCommand();

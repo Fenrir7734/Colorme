@@ -2,6 +2,7 @@ package com.fenrir.colorme.palette.adapter.in.web;
 
 import com.fenrir.colorme.palette.application.port.in.DeletePaletteUseCase;
 import com.fenrir.colorme.shared.WebAdapterTest;
+import com.fenrir.colorme.shared.sercurity.AsUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,6 +20,7 @@ class DeletePaletteControllerTest extends WebAdapterTest {
     private DeletePaletteUseCase deletePaletteUseCase;
 
     @Test
+    @AsUser
     void testDeletePalette() throws Exception {
         // given
         final String paletteCode = "1234";
