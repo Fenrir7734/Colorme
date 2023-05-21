@@ -3,6 +3,8 @@ package com.fenrir.colorme.common.exception;
 import com.fenrir.colorme.common.exception.message.ConstraintViolationErrorMessage;
 import com.fenrir.colorme.common.exception.message.ConstraintViolationInfo;
 import com.fenrir.colorme.common.exception.message.ErrorMessage;
+import com.fenrir.colorme.palette.application.service.exception.PaletteLikeAlreadyExistsException;
+import com.fenrir.colorme.palette.application.service.exception.PaletteLikeNotFoundException;
 import com.fenrir.colorme.palette.application.service.exception.PaletteNotFoundException;
 import com.fenrir.colorme.palette.application.service.exception.TagsNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -27,7 +29,7 @@ public class RestResponseExceptionHandler {
     private static final String HTTP_MESSAGE_NOT_READABLE_MESSAGE = "Failed to read request body";
     private static final String INTERNAL_SERVER_ERROR_MESSAGE = "Internal server error";
 
-    @ExceptionHandler({ PaletteNotFoundException.class, TagsNotFoundException.class })
+    @ExceptionHandler({ PaletteNotFoundException.class, PaletteLikeNotFoundException.class, TagsNotFoundException.class })
     public ResponseEntity<ErrorMessage> handleNotFoundException(Exception ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.NOT_FOUND.value(),
@@ -36,6 +38,17 @@ public class RestResponseExceptionHandler {
                 request.getDescription(false)
         );
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ PaletteLikeAlreadyExistsException.class })
+    public ResponseEntity<ErrorMessage> handleConflictException(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.CONFLICT.value(),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler({ ConstraintViolationException.class, MethodArgumentNotValidException.class })

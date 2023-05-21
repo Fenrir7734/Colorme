@@ -15,6 +15,10 @@ public class AuthenticationFacade {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+    public Long getUserId() {
+        return getUserPrincipal().getId();
+    }
+
     public boolean isAuthenticated() {
         Authentication authentication = getAuthentication();
         return authentication != null

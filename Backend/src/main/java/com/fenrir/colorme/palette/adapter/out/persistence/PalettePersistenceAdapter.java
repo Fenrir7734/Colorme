@@ -1,11 +1,15 @@
 package com.fenrir.colorme.palette.adapter.out.persistence;
 
 import com.fenrir.colorme.common.annotation.PersistenceAdapter;
+import com.fenrir.colorme.palette.application.port.out.CreatePaletteLikePort;
 import com.fenrir.colorme.palette.application.port.out.CreatePalettePort;
+import com.fenrir.colorme.palette.application.port.out.DeletePaletteLikePort;
 import com.fenrir.colorme.palette.application.port.out.DeletePalettePort;
 import com.fenrir.colorme.palette.application.port.out.GetPalettePort;
+import com.fenrir.colorme.palette.application.port.out.PaletteLikeExistsPort;
 import com.fenrir.colorme.palette.application.port.out.PaletteExistsPort;
 import com.fenrir.colorme.palette.domain.Palette;
+import com.fenrir.colorme.palette.domain.PaletteLike;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +18,15 @@ import java.util.Optional;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, CreatePalettePort, DeletePalettePort {
+class PalettePersistenceAdapter implements
+        GetPalettePort,
+        PaletteExistsPort,
+        CreatePalettePort,
+        DeletePalettePort,
+        CreatePaletteLikePort,
+        DeletePaletteLikePort,
+        PaletteLikeExistsPort {
+
     private final PaletteRepository paletteRepository;
     private final PaletteColorRepository paletteColorRepository;
     private final PaletteTagRepository paletteTagRepository;
@@ -67,5 +79,22 @@ class PalettePersistenceAdapter implements GetPalettePort, PaletteExistsPort, Cr
         paletteTagRepository.deleteAllByPaletteCode(code);
         paletteLikeRepository.deleteAllByPaletteCode(code);
         paletteRepository.deleteByCode(code);
+    }
+
+    @Override
+    public void createLike(PaletteLike like) {
+        PaletteLikeEntity entity = paletteMapper.toPaletteLikeEntity(like);
+        paletteLikeRepository.save(entity);
+    }
+
+    @Override
+    public void deleteLike(String paletteCode, Long userId) {
+        PaletteLikeEntity like = paletteLikeRepository.findByPaletteCodeAndIdUserId(paletteCode, userId);
+        paletteLikeRepository.delete(like);
+    }
+
+    @Override
+    public boolean likeExits(String paletteCode, Long userId) {
+        return paletteLikeRepository.existsByPaletteCodeAndIdUserId(paletteCode, userId);
     }
 }
