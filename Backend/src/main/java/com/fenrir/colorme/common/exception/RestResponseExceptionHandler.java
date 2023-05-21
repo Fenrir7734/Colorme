@@ -3,6 +3,7 @@ package com.fenrir.colorme.common.exception;
 import com.fenrir.colorme.common.exception.message.ConstraintViolationErrorMessage;
 import com.fenrir.colorme.common.exception.message.ConstraintViolationInfo;
 import com.fenrir.colorme.common.exception.message.ErrorMessage;
+import com.fenrir.colorme.palette.application.service.exception.NotPaletteOwnerException;
 import com.fenrir.colorme.palette.application.service.exception.PaletteLikeAlreadyExistsException;
 import com.fenrir.colorme.palette.application.service.exception.PaletteLikeNotFoundException;
 import com.fenrir.colorme.palette.application.service.exception.PaletteNotFoundException;
@@ -49,6 +50,17 @@ public class RestResponseExceptionHandler {
                 request.getDescription(false)
         );
         return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({ NotPaletteOwnerException.class })
+    public ResponseEntity<ErrorMessage> handleForbiddenException(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler({ ConstraintViolationException.class, MethodArgumentNotValidException.class })

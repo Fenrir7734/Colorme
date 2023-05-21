@@ -8,6 +8,7 @@ import com.fenrir.colorme.palette.application.port.out.DeletePalettePort;
 import com.fenrir.colorme.palette.application.port.out.GetPalettePort;
 import com.fenrir.colorme.palette.application.port.out.PaletteLikeExistsPort;
 import com.fenrir.colorme.palette.application.port.out.PaletteExistsPort;
+import com.fenrir.colorme.palette.application.port.out.UserPaletteExistsPort;
 import com.fenrir.colorme.palette.domain.Palette;
 import com.fenrir.colorme.palette.domain.PaletteLike;
 import jakarta.persistence.EntityManager;
@@ -21,6 +22,7 @@ import java.util.Optional;
 class PalettePersistenceAdapter implements
         GetPalettePort,
         PaletteExistsPort,
+        UserPaletteExistsPort,
         CreatePalettePort,
         DeletePalettePort,
         CreatePaletteLikePort,
@@ -42,6 +44,11 @@ class PalettePersistenceAdapter implements
     @Override
     public boolean paletteExists(String code) {
         return paletteRepository.existsByCode(code);
+    }
+
+    @Override
+    public boolean paletteExists(String paletteCode, Long ownerId) {
+        return paletteRepository.existsByCodeAndOwnerId(paletteCode, ownerId);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.fenrir.colorme.palette.application.service;
 
+import com.fenrir.colorme.common.security.AuthenticationFacade;
 import com.fenrir.colorme.palette.application.port.out.DeletePalettePort;
 import com.fenrir.colorme.palette.application.port.out.PaletteExistsPort;
+import com.fenrir.colorme.palette.application.port.out.UserPaletteExistsPort;
 import com.fenrir.colorme.palette.application.service.exception.PaletteNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,8 +17,10 @@ import static org.mockito.Mockito.never;
 class DeletePaletteServiceTest {
     private final DeletePalettePort deletePalettePort = Mockito.mock(DeletePalettePort.class);
     private final PaletteExistsPort paletteExistsPort = Mockito.mock(PaletteExistsPort.class);
+    private final UserPaletteExistsPort userPaletteExistsPort = Mockito.mock(UserPaletteExistsPort.class);
+    private final AuthenticationFacade authenticationFacade = Mockito.mock(AuthenticationFacade.class);
 
-    private final DeletePaletteService deletePaletteService = new DeletePaletteService(deletePalettePort, paletteExistsPort);
+    private final DeletePaletteService deletePaletteService = new DeletePaletteService(deletePalettePort, paletteExistsPort, userPaletteExistsPort, authenticationFacade);
 
     @Test
     public void deletesPalette() {

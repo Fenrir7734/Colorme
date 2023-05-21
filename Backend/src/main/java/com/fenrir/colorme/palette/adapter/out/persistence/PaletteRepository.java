@@ -7,5 +7,6 @@ import java.util.Optional;
 interface PaletteRepository extends JpaRepository<PaletteEntity, Long> {
     Optional<PaletteEntity> findByCode(String code);
     boolean existsByCode(String code);
+    boolean existsByCodeAndOwnerId(String paletteCode, Long ownerId);
     void deleteByCode(String code);
 }
