@@ -55,7 +55,7 @@ class PaletteTest {
         final Integer count = palette.likesCount();
 
         // then
-        assertThat(count).isEqualTo(0);
+        assertThat(count).isZero();
     }
 
     private Palette givenPalette() {

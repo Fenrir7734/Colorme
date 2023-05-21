@@ -24,7 +24,7 @@ class DeletePaletteServiceTest {
     private final DeletePaletteService deletePaletteService = new DeletePaletteService(deletePalettePort, paletteExistsPort, userPaletteExistsPort, authenticationFacade);
 
     @Test
-    public void deletesPaletteByOwner() {
+    void deletesPaletteByOwner() {
         // given
         final String code = "1234";
         final Long ownerId = 1L;
@@ -40,7 +40,7 @@ class DeletePaletteServiceTest {
     }
 
     @Test
-    public void deletesPaletteByAdmin() {
+    void deletesPaletteByAdmin() {
         // given
         final String code = "1234";
 
@@ -55,7 +55,7 @@ class DeletePaletteServiceTest {
     }
 
     @Test
-    public void failsToDeletePaletteDueToInvalidCode() {
+    void failsToDeletePaletteDueToInvalidCode() {
         // given
         final String code = "1234";
 
@@ -69,7 +69,7 @@ class DeletePaletteServiceTest {
     }
 
     @Test
-    public void failsToDeletePaletteIfUserIsNotOwnerAndAdmin() {
+    void failsToDeletePaletteIfUserIsNotOwnerAndAdmin() {
         // given
         final String code = "1234";
         final Long ownerId = 1L;
@@ -84,27 +84,27 @@ class DeletePaletteServiceTest {
         then(deletePalettePort).should(never()).deletePalette(any());
     }
 
-    public void givenPaletteExists(String code) {
+    private void givenPaletteExists(String code) {
         given(paletteExistsPort.paletteExists(code)).willReturn(true);
     }
 
-    public void givenPaletteNotExists(String code) {
+    private void givenPaletteNotExists(String code) {
         given(paletteExistsPort.paletteExists(code)).willReturn(false);
     }
 
-    public void givenUserIsOwnerAndNotAdmin(String code, Long userId) {
+    private void givenUserIsOwnerAndNotAdmin(String code, Long userId) {
         given(authenticationFacade.isAdmin()).willReturn(false);
         given(authenticationFacade.getUserId()).willReturn(userId);
         given(userPaletteExistsPort.paletteExists(code, userId)).willReturn(true);
     }
 
-    public void givenUserIsNotOwnerAndNotAdmin(String code, Long userId) {
+    private void givenUserIsNotOwnerAndNotAdmin(String code, Long userId) {
         given(authenticationFacade.isAdmin()).willReturn(false);
         given(authenticationFacade.getUserId()).willReturn(userId);
         given(userPaletteExistsPort.paletteExists(code, userId)).willReturn(false);
     }
 
-    public void givenUserIsAdmin() {
+    private void givenUserIsAdmin() {
         given(authenticationFacade.isAdmin()).willReturn(true);
     }
 }
