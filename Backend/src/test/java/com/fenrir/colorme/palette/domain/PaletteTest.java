@@ -64,7 +64,7 @@ class PaletteTest {
         palette.setCode("code");
         palette.setColors(List.of(new PaletteColor(1L, "123456"), new PaletteColor(2L, "654321")));
         palette.setTags(List.of(1L, 2L, 3L));
-        palette.setLikes(List.of(new PaletteLike(1L), new PaletteLike(2L)));
+        palette.setLikes(List.of(new PaletteLike(1L, 1L), new PaletteLike(2L, 1L)));
         return palette;
     }
 }

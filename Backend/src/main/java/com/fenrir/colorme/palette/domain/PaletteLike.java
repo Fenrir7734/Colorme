@@ -6,5 +6,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class PaletteLike {
-    private final Long id;
+    private final Long paletteId;
+    private final Long userId;
 }

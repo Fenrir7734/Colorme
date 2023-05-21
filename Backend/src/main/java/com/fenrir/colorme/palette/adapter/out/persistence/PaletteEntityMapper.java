@@ -12,10 +12,13 @@ import java.util.List;
 interface PaletteEntityMapper {
     PaletteEntity toPaletteEntity(Palette palette);
     PaletteColorEntity toPaletteColorEntity(PaletteColor color);
-    PaletteLikeEntity toPaletteLikeEntity(PaletteLike like);
     List<PaletteTagEntity> toPaletteTagsListEntity(List<Long> tags);
     @Mapping(source = ".", target = "id.tagId")
     PaletteTagEntity toPaletteTagEntity(Long tag);
+
+    @Mapping(source = "paletteId", target = "id.paletteId")
+    @Mapping(source = "userId", target = "id.userId")
+    PaletteLikeEntity toPaletteLikeEntity(PaletteLike like);
 
     Palette toPalette(PaletteEntity palette);
     List<PaletteColor> toPaletteColorList(List<PaletteColorEntity> colors);

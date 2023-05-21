@@ -1,12 +1,13 @@
 package com.fenrir.colorme.palette.adapter.out.persistence;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,14 +28,28 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 class PaletteLikeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private PaletteLikeEntity.Id id = new PaletteLikeEntity.Id();
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("palette_id")
     @JoinColumn(name = "palette_id")
     private PaletteEntity palette;
+
+    @Embeddable
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    @EqualsAndHashCode
+    public static class Id implements Serializable {
+        @Column(name = "palette_id")
+        private Long paletteId;
+
+        @Column(name = "user_id")
+        private Long userId;
+    }
 }

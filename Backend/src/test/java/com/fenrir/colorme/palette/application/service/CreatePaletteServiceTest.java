@@ -1,5 +1,6 @@
 package com.fenrir.colorme.palette.application.service;
 
+import com.fenrir.colorme.common.security.AuthenticationFacade;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteCommand;
 import com.fenrir.colorme.palette.application.port.in.createpalette.CreatePaletteResponse;
 import com.fenrir.colorme.palette.application.port.out.CreatePalettePort;
@@ -24,8 +25,9 @@ class CreatePaletteServiceTest {
     private final CreatePalettePort createPalettePort = Mockito.mock(CreatePalettePort.class);
     private final ExistsAllTagsQuery existsAllTagsQuery = Mockito.mock(ExistsAllTagsQuery.class);
     private final PaletteMapper paletteMapper = Mockito.mock(PaletteMapper.class);
+    private final AuthenticationFacade authenticationFacade = Mockito.mock(AuthenticationFacade.class);
 
-    private final CreatePaletteService createPaletteService = new CreatePaletteService(createPalettePort, existsAllTagsQuery, paletteMapper);
+    private final CreatePaletteService createPaletteService = new CreatePaletteService(createPalettePort, existsAllTagsQuery, paletteMapper, authenticationFacade);
 
     @Test
     void createsNewColorPalette() {

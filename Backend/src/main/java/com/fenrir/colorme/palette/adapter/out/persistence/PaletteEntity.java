@@ -40,6 +40,8 @@ class PaletteEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    private Long ownerId;
+
     @OneToMany(mappedBy = "palette", fetch = FetchType.LAZY)
     private List<PaletteColorEntity> colors = new ArrayList<>();
 
