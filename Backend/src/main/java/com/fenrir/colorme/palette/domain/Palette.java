@@ -16,7 +16,6 @@ public class Palette {
     private List<Long> tags = new ArrayList<>();
     private List<PaletteLike> likes = new ArrayList<>();
     private Long ownerId;
-    private Long ownerCode;
 
     public List<String> getHexList() {
         if (colors == null) {

@@ -8,7 +8,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.never;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,7 +23,7 @@ class DeletePaletteControllerTest extends WebAdapterTest {
 
     @Test
     @AsUser
-    void testDeletePalette() throws Exception {
+    void testDeletePaletteAsUser() throws Exception {
         // given
         final String paletteCode = "1234";
 
@@ -32,5 +34,19 @@ class DeletePaletteControllerTest extends WebAdapterTest {
         response.andExpect(status().isNoContent());
 
         then(deletePaletteUseCase).should().deletePalette(paletteCode);
+    }
+
+    @Test
+    void testDeletePaletteAsAnonymousUser() throws Exception {
+        // given
+        final String paletteCode = "1234";
+
+        // when
+        ResultActions response = mockMvc.perform(delete(String.format(DELETE_PALETTE_CONTROLLER_ENDPOINT, paletteCode)));
+
+        // then
+        response.andExpect(status().isUnauthorized());
+
+        then(deletePaletteUseCase).should(never()).deletePalette(any());
     }
 }

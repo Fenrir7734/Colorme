@@ -33,7 +33,7 @@ class CreatePaletteControllerTest extends WebAdapterTest {
 
     @Test
     @AsUser
-    void testCreatePalette() throws Exception {
+    void testCreatePaletteAsUser() throws Exception {
         // given
         final CreatePaletteCommand command = givenCommand();
         final CreatePaletteResponse createPaletteResponse = toCreatePaletteResponse(command);
@@ -69,6 +69,25 @@ class CreatePaletteControllerTest extends WebAdapterTest {
 
         // then
         response.andExpect(status().isBadRequest());
+
+        then(createPaletteUseCase).should(never()).createPalette(any());
+    }
+
+    @Test
+    void testCreatePaletteAsAnonymousUser() throws Exception {
+        // given
+        final CreatePaletteCommand command = givenCommand();
+        final CreatePaletteResponse createPaletteResponse = toCreatePaletteResponse(command);
+
+        givenCreatePaletteUseCaseWillSuccess(command, createPaletteResponse);
+
+        // when
+        ResultActions response = mockMvc.perform(post(CREATE_PALETTE_CONTROLLER_ENDPOINT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(command)));
+
+        // then
+        response.andExpect(status().isUnauthorized());
 
         then(createPaletteUseCase).should(never()).createPalette(any());
     }

@@ -4,6 +4,7 @@ import com.fenrir.colorme.common.security.AuthenticationFacade;
 import com.fenrir.colorme.palette.application.port.out.DeletePalettePort;
 import com.fenrir.colorme.palette.application.port.out.PaletteExistsPort;
 import com.fenrir.colorme.palette.application.port.out.UserPaletteExistsPort;
+import com.fenrir.colorme.palette.application.service.exception.NotPaletteOwnerException;
 import com.fenrir.colorme.palette.application.service.exception.PaletteNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,11 +24,28 @@ class DeletePaletteServiceTest {
     private final DeletePaletteService deletePaletteService = new DeletePaletteService(deletePalettePort, paletteExistsPort, userPaletteExistsPort, authenticationFacade);
 
     @Test
-    public void deletesPalette() {
+    public void deletesPaletteByOwner() {
+        // given
+        final String code = "1234";
+        final Long ownerId = 1L;
+
+        givenPaletteExists(code);
+        givenUserIsOwnerAndNotAdmin(code, ownerId);
+
+        // when
+        deletePaletteService.deletePalette(code);
+
+        // then
+        then(deletePalettePort).should().deletePalette(code);
+    }
+
+    @Test
+    public void deletesPaletteByAdmin() {
         // given
         final String code = "1234";
 
         givenPaletteExists(code);
+        givenUserIsAdmin();
 
         // when
         deletePaletteService.deletePalette(code);
@@ -50,11 +68,43 @@ class DeletePaletteServiceTest {
         then(deletePalettePort).should(never()).deletePalette(any());
     }
 
+    @Test
+    public void failsToDeletePaletteIfUserIsNotOwnerAndAdmin() {
+        // given
+        final String code = "1234";
+        final Long ownerId = 1L;
+
+        givenPaletteExists(code);
+        givenUserIsNotOwnerAndNotAdmin(code, ownerId);
+
+        // when & then
+        assertThatThrownBy(() -> deletePaletteService.deletePalette(code))
+                .isInstanceOf(NotPaletteOwnerException.class);
+
+        then(deletePalettePort).should(never()).deletePalette(any());
+    }
+
     public void givenPaletteExists(String code) {
         given(paletteExistsPort.paletteExists(code)).willReturn(true);
     }
 
     public void givenPaletteNotExists(String code) {
         given(paletteExistsPort.paletteExists(code)).willReturn(false);
+    }
+
+    public void givenUserIsOwnerAndNotAdmin(String code, Long userId) {
+        given(authenticationFacade.isAdmin()).willReturn(false);
+        given(authenticationFacade.getUserId()).willReturn(userId);
+        given(userPaletteExistsPort.paletteExists(code, userId)).willReturn(true);
+    }
+
+    public void givenUserIsNotOwnerAndNotAdmin(String code, Long userId) {
+        given(authenticationFacade.isAdmin()).willReturn(false);
+        given(authenticationFacade.getUserId()).willReturn(userId);
+        given(userPaletteExistsPort.paletteExists(code, userId)).willReturn(false);
+    }
+
+    public void givenUserIsAdmin() {
+        given(authenticationFacade.isAdmin()).willReturn(true);
     }
 }
