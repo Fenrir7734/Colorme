@@ -13,7 +13,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity // Fix HttpSecurity autowire warning in Intellij
 @RequiredArgsConstructor
 class WebSecurityConfig {
-
     private final ColormeOAuth2UserService oAuth2UserService;
     private final UnauthorizedEntryPoint unauthorizedEntryPoint;
 

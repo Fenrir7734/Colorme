@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/v1/palettes")
 @RequiredArgsConstructor
-public class GetPaletteController {
+class GetPaletteController {
     private final GetPaletteUseCase getPaletteUseCase;
 
     @GetMapping("/{code}")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/v1/palettes/{paletteCode}/unlike")
 @RequiredArgsConstructor
-public class UnlikePaletteController {
+class UnlikePaletteController {
     private final DeletePaletteLikeUseCase deletePaletteLikeUseCase;
 
     @DeleteMapping

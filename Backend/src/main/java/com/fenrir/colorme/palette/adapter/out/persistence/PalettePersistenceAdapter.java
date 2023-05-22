@@ -67,18 +67,14 @@ class PalettePersistenceAdapter implements
     }
 
     private void persisPaletteColors(PaletteEntity palette) {
-        final List<PaletteColorEntity> colors = palette.getColors()
-                .stream()
-                .peek(color -> color.setPalette(palette))
-                .toList();
+        final List<PaletteColorEntity> colors = palette.getColors();
+        colors.forEach(color -> color.setPalette(palette));
         paletteColorRepository.saveAll(colors);
     }
 
     private void persistPaletteTags(PaletteEntity palette) {
-        final List<PaletteTagEntity> tags = palette.getTags()
-                .stream()
-                .peek(tag -> tag.getId().setPaletteId(palette.getId()))
-                .toList();
+        final List<PaletteTagEntity> tags = palette.getTags();
+        tags.forEach(tag -> tag.getId().setPaletteId(palette.getId()));
         paletteTagRepository.saveAll(tags);
     }
 

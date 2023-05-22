@@ -22,7 +22,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestResponseExceptionHandler {
@@ -71,7 +70,7 @@ public class RestResponseExceptionHandler {
             constraintViolations = cve.getConstraintViolations()
                     .stream()
                     .map(ConstraintViolationInfo::from)
-                    .collect(Collectors.toList());
+                    .toList();
         } else if (ex instanceof MethodArgumentNotValidException manve) {
             constraintViolations = manve.getBindingResult()
                     .getFieldErrors()
