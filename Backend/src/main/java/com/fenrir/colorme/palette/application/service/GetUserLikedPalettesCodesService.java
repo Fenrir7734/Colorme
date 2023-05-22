@@ -19,6 +19,9 @@ class GetUserLikedPalettesCodesService implements GetUserLikedPalettesCodesUseCa
     @Override
     public List<String> getUserLikedPalettesCodes() {
         Long userId = authenticationFacade.getUserId();
-        return getUserLikedPalettesCodesPort.getLikedPalettesCodes(userId);
+        return getUserLikedPalettesCodesPort.getLikedPalettesCodes(userId)
+                .stream()
+                .map(String::trim)
+                .toList();
     }
 }

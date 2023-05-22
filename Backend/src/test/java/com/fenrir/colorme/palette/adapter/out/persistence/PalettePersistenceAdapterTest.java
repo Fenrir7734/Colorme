@@ -185,4 +185,14 @@ class PalettePersistenceAdapterTest extends PersistenceAdapterTest {
         // then
         assertThat(result).isFalse();
     }
+
+    @Test
+    void shouldReturnUserLikePalettesCodes() {
+        // when
+        List<String> result = palettePersistenceAdapter.getLikedPalettesCodes(ADMIN_ID);
+
+        // then
+        result = result.stream().map(String::trim).toList();
+        assertThat(result).containsExactly(EXISTING_PALETTE_CODE);
+    }
 }
