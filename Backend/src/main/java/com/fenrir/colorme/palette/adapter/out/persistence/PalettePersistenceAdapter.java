@@ -8,6 +8,7 @@ import com.fenrir.colorme.palette.application.port.out.DeletePalettePort;
 import com.fenrir.colorme.palette.application.port.out.GetPalettePort;
 import com.fenrir.colorme.palette.application.port.out.PaletteLikeExistsPort;
 import com.fenrir.colorme.palette.application.port.out.PaletteExistsPort;
+import com.fenrir.colorme.palette.application.port.out.GetUserLikedPalettesCodesPort;
 import com.fenrir.colorme.palette.application.port.out.UserPaletteExistsPort;
 import com.fenrir.colorme.palette.domain.Palette;
 import com.fenrir.colorme.palette.domain.PaletteLike;
@@ -27,7 +28,8 @@ class PalettePersistenceAdapter implements
         DeletePalettePort,
         CreatePaletteLikePort,
         DeletePaletteLikePort,
-        PaletteLikeExistsPort {
+        PaletteLikeExistsPort,
+        GetUserLikedPalettesCodesPort {
 
     private final PaletteRepository paletteRepository;
     private final PaletteColorRepository paletteColorRepository;
@@ -103,5 +105,10 @@ class PalettePersistenceAdapter implements
     @Override
     public boolean likeExits(String paletteCode, Long userId) {
         return paletteLikeRepository.existsByPaletteCodeAndIdUserId(paletteCode, userId);
+    }
+
+    @Override
+    public List<String> getLikedPalettesCodes(Long userId) {
+        return paletteLikeRepository.findAllUserLikedPalettesCodes(userId);
     }
 }
