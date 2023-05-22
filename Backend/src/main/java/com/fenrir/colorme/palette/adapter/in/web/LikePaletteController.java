@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllowUser
 @WebAdapter
 @RestController
-@AllowUser
 @RequestMapping(path = "/api/v1/palettes/{paletteCode}/like")
 @RequiredArgsConstructor
 class LikePaletteController {

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
+@AllowUser
 @WebAdapter
 @RestController
-@AllowUser
 @RequestMapping(path = "/api/v1/palettes")
 @RequiredArgsConstructor
 class CreatePaletteController {

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllowUser
 @WebAdapter
 @RestController
-@AllowUser
 @RequestMapping(path = "/api/v1/palettes/{paletteCode}/unlike")
 @RequiredArgsConstructor
 public class UnlikePaletteController {
