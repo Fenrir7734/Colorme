@@ -19,6 +19,10 @@ public class AuthenticationFacade {
         return getUserPrincipal().getId();
     }
 
+    public String getUserCode() {
+        return getUserPrincipal().getCode();
+    }
+
     public boolean isAuthenticated() {
         Authentication authentication = getAuthentication();
         return authentication != null

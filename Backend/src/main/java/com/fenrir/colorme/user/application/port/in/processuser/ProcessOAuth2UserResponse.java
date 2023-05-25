@@ -6,6 +6,7 @@ import lombok.Value;
 @Value
 public class ProcessOAuth2UserResponse {
     Long id;
+    String code;
     String email;
     Role role;
 }

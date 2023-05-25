@@ -16,6 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserPrincipal implements OAuth2User, UserDetails {
     private final Long id;
+    private final String code;
     private final String email;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
@@ -27,6 +28,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
         return new UserPrincipal(
                 user.getId(),
+                user.getCode(),
                 user.getEmail(),
                 null,
                 authorities,
@@ -34,9 +36,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         );
     }
 
-    public static UserPrincipal create(Long id, String email, String password, Collection<? extends  GrantedAuthority> authorities) {
+    public static UserPrincipal create(Long id, String code, String email, String password, Collection<? extends  GrantedAuthority> authorities) {
         return new UserPrincipal(
                 id,
+                code,
                 email,
                 password,
                 authorities,
@@ -46,6 +49,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     public Long getId() {
         return id;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     @Override

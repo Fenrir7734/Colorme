@@ -27,7 +27,7 @@ public class AsUserSecurityContextFactory implements WithSecurityContextFactory<
         final String email = getEmailFrom(asUser);
         final Collection<? extends GrantedAuthority> authorities = getAuthoritiesFrom(asUser);
 
-        final UserPrincipal principal = UserPrincipal.create(asUser.id(), email, asUser.password(), authorities);
+        final UserPrincipal principal = UserPrincipal.create(asUser.id(), asUser.code(), email, asUser.password(), authorities);
         return new UsernamePasswordAuthenticationToken(
                 principal,
                 asUser.password(),

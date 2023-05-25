@@ -21,6 +21,7 @@ public @interface AsUser {
     String value() default "user";
     String email() default "";
     long id() default 0;
+    String code() default "";
     Role[] roles() default { Role.USER };
     String password() default "password";
 
