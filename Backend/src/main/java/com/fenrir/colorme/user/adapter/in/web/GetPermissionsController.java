@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/v1/me/permissions")
 @RequiredArgsConstructor
-public class GetPermissionsController {
+class GetPermissionsController {
     private final GetPermissionsUseCase getPermissionsUseCase;
 
     @GetMapping
